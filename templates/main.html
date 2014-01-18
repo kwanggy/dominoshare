@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bootstrap 101 Template</title>
+    <title>Welcome to 'Dominos Share'! </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/style.css" rel="stylesheet">
@@ -16,31 +16,13 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#" style="padding:1px"><img src="../static/imgs/cropped.png" style="width:70%;height:70%"></a>
+    <a class="navbar-brand" href="#" style="padding:1px"><img src="../static/imgs/cropped.png" style="width:60%;height:60%"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
-
-    <ul class="nav navbar-nav">
-      <li><a href="#">
-        <form class="form-inline" role="form">
-          <div class="form-group">
-            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
-          </div>
-          <div class="form-group">
-            <label class="sr-only" for="exampleInputPassword2">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
-          </div>
-          <button type="submit" class="btn btn-default">Sign in</button>
-          <button type="submit" class="btn btn-default">Sign up</button>
-        </form>
-        </a>
-      </li>
-    </ul>
 
 
   <ul class="nav navbar-nav navbar-right">
@@ -75,20 +57,9 @@
   <div class="col-lg-6">
     <div class="panel panel-success">
         <div class="panel-heading">
-          <br><h1 class="panel-title">Room Listing</h1><br>
+          <h1 class="panel-title">Room Listing</h1>
         </div>
         <div class="panel-body" style="text-align:center;">
-
-          <!--# of List Room-->
-          <ul class="pagination pagination-sm">
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-          </ul>
 
 
           <div class="panel-group" id="accordion">
@@ -161,6 +132,16 @@
       </div>
     </div>
   </div>
+  <!--# of List Room-->
+          <ul class="pagination pagination-sm" style="margin-bottom:0px">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+          </ul>
 </div>
 </div>
 </div>
@@ -174,29 +155,42 @@
   <div class="col-lg-6">
     <div class="panel panel-success">
       <div class="panel-heading">
-        <h1 class="panel-title"><br>Create a Room<br></br></h1>
+        <h1 class="panel-title">Create a Room</h1>
       </div>
       <div class="panel-body">
 
         <form role="form">
           <div class="form-group">
-            <label for="exampleInputEmail1">Room Name</label>
+            <label for="RoomName">Room Name</label>
             <input type="roomname" class="form-control" id="exampleInputEmail1" placeholder="'Good Day for Chicken'">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Message</label>
+            <label for="RoomMessage">Message</label>
             <input type="message" class="form-control" id="exampleInputPassword1" placeholder="Type Your Message (limit 150 characters)">
           </div>
+          <div class="form-group">
+            <label for="MeetUpLocation">Meet-up Location</label>
+            <input type="message" class="form-control" id="exampleInputPassword1" placeholder="Hawkins Hall, PMU, etc...">
+          </div>
+          <div class="form-group">
+            <label for="Menu">Menu</label>
+            <input type="message" class="form-control" id="exampleInputPassword1" placeholder="Medium pepperoni pizza, etc...">
+          </div>
           <div class="options">
-            <label>
-              <font> Choices :</font> &nbsp;
-              <input type="checkbox"> 50% &nbsp;
-              <input type="checkbox"> 100% (For Free) 
+              <label>
+              <font> Payment :</font> &nbsp;
             </label>
+              <label>
+              <input type="checkbox"> 50% (Pay Half Price)
+               </label>
+              &nbsp;
+              <label>
+              <input type="checkbox"> 100%  (Pay Full Price)
+              </label>
           </div>
           <div class="col-xs-4"></div>
-          <div class="col-xs-4">
-          <br><button type="submit" class="btn btn-default">Create!</button>
+          <div class="col-xs-4" style="text-align:center">
+          <br><button type="submit" class="btn btn-default">Share</button>
           </div>
           <div class="col-xs-4"></div>
         </form>
