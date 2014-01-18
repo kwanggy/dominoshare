@@ -32,7 +32,7 @@ class Session(db.Model):
             db.session.delete(s)
 
         self.user = user
-        self.key = user.id + 'key'
+        self.key = str(user.id) + 'key'
 
 '''
 class User(db.Model):
