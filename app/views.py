@@ -82,7 +82,7 @@ def newSessionKey(user):
     return user.session_key
     
 
-@app.route('/reset')
+@app.route('/api/reset')
 @json_response()
 def reset():
     try: 
@@ -98,21 +98,21 @@ def reset():
     return len(User.query.all())
     
 
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 @json_response()
 @userinfo_required(create=True)
 def signup_page(user):
     return newSessionKey(user)
 
 
-@app.route('/signin', methods=['POST'])
+@app.route('/api/signin', methods=['POST'])
 @json_response()
 @userinfo_required()
 def signin_page(user):
     return newSessionKey(user)
 
 
-@app.route('/room', methods=['GET', 'POST'])
+@app.route('/api/room', methods=['GET', 'POST'])
 @json_response()
 @session_required()
 def room_page(user):
