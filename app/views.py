@@ -85,7 +85,7 @@ def newSessionKey(user):
 @app.route('/reset')
 @json_response()
 def reset():
-    if not conf['test-mode']:
+    if not conf['sys']['test-mode']:
         db.engine.execute('DROP TABLE "user" CASCADE')
         db.engine.execute('DROP TABLE "session" CASCADE')
         db.engine.execute('DROP TABLE "room" CASCADE')
