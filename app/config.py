@@ -56,8 +56,8 @@ def check_test_mode():
         with open('TEST') as f:
             pass
         log('TEST MODE')
-        conf['test-mode'] = True
-        return conf['test-mode']
+        conf['sys']['test-mode'] = True
+        return conf['sys']['test-mode']
     except:
         pass
     return False
