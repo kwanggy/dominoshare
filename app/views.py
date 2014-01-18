@@ -14,6 +14,14 @@ def json_response():
     def decorator(f):
         def wrapped():
             try:
+                log(request.args)
+            except:
+                pass
+            try:
+                log(request.form)
+            except:
+                pass
+            try:
                 res = f()
             except Exception as e:
                 log(traceback.format_exc())
