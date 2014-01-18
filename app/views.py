@@ -88,6 +88,11 @@ def newSessionKey(user):
     db.session.add(s)
     db.session.commit()
     return user.session_key
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
     
 
 @app.route('/api/reset')
@@ -128,10 +133,13 @@ def room_page(user):
         if 'zipcode' in request.args:
             zipcode = request.args['zipcode']
             rooms = Room.query.filter_by(zipcode=zipcode).all()
-            res = [r.to_json() for r in rooms]
+            res = []
+            for r in rooms:
+                if len(r.users) == 1:
+                    res.append(r.to_json())
             return res
         elif 'id' in request.args and 'last_updated' in request.args:
-            lu = request.args['last_updated']
+            lu = float(request.args['last_updated'])
             rid = request.args['id']
             if lu < app.last_updated[rid]:
                 r = Room.query.filter_by(id=rid).first()
@@ -162,3 +170,7 @@ def room_page(user):
             db.session.commit()
             res = r.to_json()
             return res
+        elif 'leave' in request.form:
+            user.leave_room()
+        else:
+            raise Exception('invalid arguments')
