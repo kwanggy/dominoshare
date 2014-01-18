@@ -9,5 +9,8 @@ if __name__ == '__main__':
         import os
         port = int(os.environ['PORT'])
 
-    app.wsgi_app = ProxyFix(app.wsgi_app)
+    import sys
+    if len(sys.argv) == 1:
+        app.wsgi_app = ProxyFix(app.wsgi_app)
+        print 'using gunicorn'
     app.run(host='0.0.0.0', port=port)

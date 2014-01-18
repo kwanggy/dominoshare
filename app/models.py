@@ -1,115 +1,89 @@
 from datetime import datetime
+import uuid, OpenSSL
 
 from flask import *
 from flask.ext.sqlalchemy import SQLAlchemy
 
 
-from . import db
+from . import app, db
+
+from util import totimestamp
 
 
 class User(db.Model):
+    created_at = db.Column(db.DateTime)
     id = db.Column(db.Integer, primary_key=True)
-    joined_at = db.Column(db.DateTime)
     phone = db.Column(db.String, unique=True)
     pw = db.Column(db.String)
+    session_key = db.Column(db.String, db.ForeignKey('session.key'))
+    session = db.relationship('Session',
+        backref=db.backref('user', lazy='dynamic'))
+    rid = db.Column(db.Integer, db.ForeignKey('room.id'))
+    room = db.relationship('Room',
+        backref=db.backref('users', lazy='dynamic'))
 
     def __init__(self, phone, pw):
-        self.joined_at = datetime.utcnow()
+        self.created_at = datetime.utcnow()
         self.phone = phone
         self.pw = pw
+        self.room = None
+
+    def join_room(self, room):
+        if len(room.users.all()) > 2:
+            return False
+        self.room = room
+        room.updated()
+        return True
+
+    def leave_room(self, room):
+        self.room = None
+        room.updated()
+
+    def set_session(self, session):
+        if self.session:
+            db.session.delete(self.session)
+        self.session = session
+        
 
 class Session(db.Model):
     created_at = db.Column(db.DateTime)
-    uid = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     key = db.Column(db.String, unique=True)
-    user = db.relationship('User',
-        backref=db.backref('session', lazy='dynamic'))
 
-    def __init__(self, user):
+    def __init__(self):
         self.created_at = datetime.utcnow()
+        self.key = str(uuid.UUID(bytes = OpenSSL.rand.bytes(16)))
 
-        for s in user.session.all():
-            db.session.delete(s)
-
-        self.user = user
-        self.key = str(user.id) + 'key'
-
-'''
-class User(db.Model):
+class Room(db.Model):
+    created_at = db.Column(db.DateTime)
     id = db.Column(db.Integer, primary_key=True)
-    joined_at = db.Column(db.DateTime)
-    image_url = db.Column(db.String) 
+    title = db.Column(db.String)
+    zipcode = db.Column(db.String)
+    menu = db.Column(db.String)
+    photo_url = db.Column(db.String)
+    last_updated = db.Column(db.DateTime)
 
-    twitter_conn_id = db.Column(db.Integer, db.ForeignKey('connection.id'))
-    facebook_conn_id = db.Column(db.Integer, db.ForeignKey('connection.id'))
-    google_conn_id = db.Column(db.Integer, db.ForeignKey('connection.id'))
+    def __init__(self, title, zipcode, menu):
+        self.created_at = datetime.utcnow()
+        self.title = title
+        self.zipcode = zipcode
+        self.menu = menu
+        self.photo_url = ''
+        self.updated()
 
+    def updated(self):
+        self.last_updated = datetime.utcnow()
 
-    def __init__(self, sns_data):
-        self.joined_at = datetime.utcnow()
-
-        self.twitter_conn_id = None
-        self.facebook_conn_id = None
-        self.google_conn_id = None
-
-        self.twitter_image_url = None
-        self.facebook_image_url = None
-        self.google_image_url = None
-
-        conn = Connection(sns_data)
-        sns = sns_data['provider_id']
-        if sns == 'twitter':
-            self.twitter_conn_id = conn.id
-        elif sns == 'facebook':
-            self.facebook_conn_id = conn.id
-        elif sns == 'google':
-            self.google_conn_id = conn.id
-        self.image_url = conn.image_url
-
-    def picture(self):
-        if self.main_sns == 'twitter':
-            return self.twitter_image_url
-        elif self.main_sns == 'facebook':
-            return self.facebook_image_url
-        elif self.main_sns == 'google':
-            return self.google_image_url
-
-
-class Connection(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    owner = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-    user_id = db.Column(db.String)
-    display_name = db.Column(db.String)
-    full_name = db.Column(db.String)
-    profile_url = db.Column(db.String)
-    image_url = db.Column(db.String)
-    token_key = db.Column(db.String)
-    token_secret = db.Column(db.String)
-
-    def __init__(self, owner, sns_data):
-        self.owner = owner
-        self.user_id = sns_data['provider_user_id']
-        self.display_name = sns_data['provider_display_name']
-        self.full_name = sns_data['provider_full_name']
-        self.profile_url = sns_data['provider_profile_url']
-        self.image_url = sns_data['provider_image_url']
-        self.token_key = sns_data['provider_token_key']
-        self.token_secret = sns_data['provider_token_secret']
-
-
-class Submission(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.Integer, db.ForeignKey('user.id'))
-    body = db.Column(db.Text)
-    lastSubmitted = db.Column(db.DateTime)
-    rid= db.Column(db.Integer, db.ForeignKey('room.id'))
-    room = db.relationship('Room',
-        backref=db.backref('subsmissions', lazy='dynamic'))
-
-    def __init__(self, uid, rid, body):
-        self.author = uid
-        self.rid = rid
-        self.body = body
-        self.lastSubmitted = datetime.utcnow()
-'''
+    def to_json(self):
+        ts = totimestamp(self.last_updated)
+        app.last_updated[self.id] = ts
+        j = {
+            'id': self.id,
+            'title': self.title,
+            'zipcode': self.zipcode,
+            'menu': self.menu,
+            'photo_url': self.photo_url,
+            'users': [u.phone for u in self.users],
+            'last_updated': ts
+        }
+        return j
