@@ -14,6 +14,14 @@ def json_response():
     def decorator(f):
         def wrapped():
             try:
+                log(request.args)
+            except:
+                pass
+            try:
+                log(request.form)
+            except:
+                pass
+            try:
                 res = f()
             except Exception as e:
                 log(traceback.format_exc())
@@ -80,9 +88,14 @@ def newSessionKey(user):
     db.session.add(s)
     db.session.commit()
     return user.session_key
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
     
 
-@app.route('/reset')
+@app.route('/api/reset')
 @json_response()
 def reset():
     try: 
@@ -98,21 +111,21 @@ def reset():
     return len(User.query.all())
     
 
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 @json_response()
 @userinfo_required(create=True)
 def signup_page(user):
     return newSessionKey(user)
 
 
-@app.route('/signin', methods=['POST'])
+@app.route('/api/signin', methods=['POST'])
 @json_response()
 @userinfo_required()
 def signin_page(user):
     return newSessionKey(user)
 
 
-@app.route('/room', methods=['GET', 'POST'])
+@app.route('/api/room', methods=['GET', 'POST'])
 @json_response()
 @session_required()
 def room_page(user):
@@ -120,10 +133,13 @@ def room_page(user):
         if 'zipcode' in request.args:
             zipcode = request.args['zipcode']
             rooms = Room.query.filter_by(zipcode=zipcode).all()
-            res = [r.to_json() for r in rooms]
+            res = []
+            for r in rooms:
+                if len(r.users) == 1:
+                    res.append(r.to_json())
             return res
         elif 'id' in request.args and 'last_updated' in request.args:
-            lu = request.args['last_updated']
+            lu = float(request.args['last_updated'])
             rid = request.args['id']
             if lu < app.last_updated[rid]:
                 r = Room.query.filter_by(id=rid).first()
@@ -154,3 +170,7 @@ def room_page(user):
             db.session.commit()
             res = r.to_json()
             return res
+        elif 'leave' in request.form:
+            user.leave_room()
+        else:
+            raise Exception('invalid arguments')

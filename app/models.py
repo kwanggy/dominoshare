@@ -35,9 +35,13 @@ class User(db.Model):
         room.updated()
         return True
 
-    def leave_room(self, room):
+    def leave_room(self):
+        room = self.room
         self.room = None
-        room.updated()
+        if len(self.room.users) > 0:
+            room.updated()
+        else:
+            db.session.delete(room)
 
     def set_session(self, session):
         if self.session:
