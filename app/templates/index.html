@@ -192,14 +192,13 @@
 
 
   <!--AREA B STARTS HERE-->
-  <div class="room creation">
-  <div class="col-lg-6">
-    <div class="panel panel-success">
-      <div class="panel-heading">
-        <h1 class="panel-title">Create a Room</h1>
-      </div>
-      <div class="panel-body">
-
+  <div class="room creation"style="display:none">
+    <div class="col-lg-6">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h1 class="panel-title">Create a Room</h1>
+        </div>
+        <div class="panel-body">
         <form role="form">
           <div class="form-group">
             <label for="MeetUpLocation">Meet-up Location</label>
@@ -220,8 +219,44 @@
           </div>
           <div class="col-xs-4"></div>
         </form>
-
-
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+ <div class="room confirmation"style="display:none">
+    <div class="col-lg-6">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h1 class="panel-title">Create a Room</h1>
+        </div>
+        <div class="panel-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="MeetUpLocation">Meet-up Location</label>
+            <input type="message" class="form-control" id="meetup" placeholder="Hawkins Hall, PMU, etc...">
+          </div>
+          <div class="form-group">
+            <label for="Menu">Menu</label>
+            <input type="message" class="form-control" id="menu" placeholder="Medium pepperoni pizza, etc...">
+          </div>
+          <div class="form-group">
+            <label for="Menu">Price</label>
+            <input type="message" class="form-control" id="price" placeholder="Medium pepperoni pizza, etc...">
+          </div>
+          <div class="col-xs-4"></div>
+          <div class="col-xs-4" style="text-align:center">
+          <br>
+          <input type="button" id="share" class="btn btn-default" value="Share">
+          </div>
+          <div class="col-xs-4"></div>
+        </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
     <script src="https://code.jquery.com/jquery.js"></script>
@@ -232,6 +267,7 @@
 <script>
     var sessionkey;
     var zipcode;
+    var roomid=-1;
     $(document).ready(function(){
 
     $("#signin").click(function(){
@@ -263,7 +299,13 @@
                       $('#ziphome').css("display","none");
                       $('#logohome').css("display", "inherit");
                       $('#signhome').css("display", "inherit");
-                    });
+
+                      $.delete('/api/room?session_key='+sessionkey,
+                        function(data) {
+                          if(data.status_code !=200)
+                            console.log('something wrong');
+                        });
+                  });
 
     $("#registerbutton").click(function(){
         var password= $('#signuppass').val();
@@ -304,10 +346,11 @@
                       {
                         if($count==4) break;
                           //room listing first..
-                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id='joinroom'></div></div></div>");
+                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
                         $("#accordion").append($newdiv1);
                         $count++;
                         $opened='';
+                       
                       }
                       //calculate len of array
                       //divide by 4.
@@ -341,6 +384,32 @@
                 });
         });
 
+    $("#accordion").on("click",".roomjoin",function(){
+      var id;
+      if (roomid == -1)
+      {
+        id = this.id;
+        console.log(id);
+      }
+      else
+      {
+        id = roomid;
+      }
+      $.post('/api/room',
+                {'session_key':sessionkey, 'id':id},
+                function(data) {
+                  console.log(data);
+                    if(data.status_code !=200)
+                    {
+                      //join failed.
+                      //might be full bang already.
+                    }
+                    else
+                    {
+                      //join ok
+                    }
+                });
+    });
     $("#pages").on("click",".pagebutton",function(){
       //ignore, disabled
       //ignore, active
@@ -401,10 +470,18 @@
                       {
                         if($count==4) break;
                           //room listing first..
-                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><button type='button' class='btn btn-success'>Join!</button></div></div></div>");
+                        if(roomid == -1)
+                        {
+                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
+                        }
+                        else
+                        {
+                          $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
+                        } 
                         $("#accordion").append($newdiv1);
                         $count++;
                         $opened='';
+                        
                       }
                       //calculate len of array
                       //divide by 4.
@@ -478,6 +555,9 @@
                 {'session_key':sessionkey, 'title':meetup,
                  'menu':menu_plus_price, 'zipcode':zipcode},
                 function(data) {
+                    console.log(data);
+                    roomid=data.result['id'];
+                    console.log(roomid);
                     if(data.status_code == 200)
                     {
                       $('#meetup').val('');
@@ -496,7 +576,14 @@
                       {
                         if($count==4) break;
                           //room listing first..
-                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><button type='button' class='btn btn-success'>Join!</button></div></div></div>");
+                        if(roomid == -1)
+                        {
+                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
+                        }
+                        else
+                        {
+                          $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
+                        } 
                         $("#accordion").append($newdiv1);
                         $count++;
                         $opened='';
