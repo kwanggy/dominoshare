@@ -31,9 +31,9 @@
   </head>
   
 
-  <body><br><br>
-    <div class="zipcodetpage"><br>
-    <div class="logo" style="text-align:center; padding-bottom:10px">
+  <body>    <div class="zipcodetpage" id="logohome"><br><br><br>
+
+    <div class="logo" style="text-align:center; padding-bottom:10px" id="logo">
       <img src="../static/imgs/cropped.png">
     </div>
 
@@ -111,9 +111,9 @@
           <form class="form-inline" role="form">
             <div class="form-group">
               <label class="sr-only" for="zipcode">ZipCode</label>
-              <input type="zipcode" class="form-control" id="zipcode" placeholder="Zip Code">
+              <input type="text" class="form-control" id="zipcode" placeholder="Zip Code">
             </div>
-            <button type="submit" id="search" class="btn btn-default">Search</button>
+            <input type="button" id="search" class="btn btn-default" value="Search">
           </form>
         </div>
       </p>
@@ -121,6 +121,207 @@
   </div>
 
   <!--END OF ZIPCODE-->
+
+
+<div id='wholeshit' style="display:none">
+    <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#" style="padding:1px"><img src="../static/imgs/cropped.png" style="width:60%;height:60%"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+
+
+  <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Profile<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Edit Profile</a></li>
+          <li><a href="#">Order History</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Log Out</a></li>
+        </ul>
+    </li>
+  </ul>
+</div><!-- /.navbar-collapse -->
+</nav>
+
+<!--nav bar ends-->
+
+
+
+
+
+
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+
+
+  <div class="row room-page">
+
+
+  <!--AREA A STARTS HERE-->
+  <div class="col-lg-6">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+          <h1 class="panel-title">Room Listing</h1>
+        </div>
+        <div class="panel-body" style="text-align:center;">
+
+
+          <div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Collapsible Group Item #1
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+
+        Room Message Goes Here!
+
+
+<!--Enter Icon-->
+        <div class="icon" style="text-align:center;">
+          <br><button type="button" class="btn btn-success">Join!</button>
+        </div>
+<!--End Icon-->
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Collapsible Group Item #2
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+
+        Room Message Goes Here!
+
+
+<!--Enter Icon-->
+        <div class="icon" style="text-align:center;">
+          <br><button type="button" class="btn btn-success">Join!</button>
+        </div>
+<!--End Icon-->
+
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          Collapsible Group Item #3
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+
+        Room Message Goes Here!
+
+<!--Enter Icon-->
+        <div class="icon" style="text-align:center;">
+          <br><button type="button" class="btn btn-success">Join!</button>
+        </div>
+<!--End Icon-->
+
+      </div>
+    </div>
+  </div>
+  <!--# of List Room-->
+          <ul class="pagination pagination-sm" style="margin-bottom:0px">
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+          </ul>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+  <!--AREA B STARTS HERE-->
+  <div class="room creation">
+  <div class="col-lg-6">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h1 class="panel-title">Create a Room</h1>
+      </div>
+      <div class="panel-body">
+
+        <form role="form">
+          <div class="form-group">
+            <label for="RoomName">Room Name</label>
+            <input type="roomname" class="form-control" id="exampleInputEmail1" placeholder="'Good Day for Chicken'">
+          </div>
+          <div class="form-group">
+            <label for="RoomMessage">Message</label>
+            <input type="message" class="form-control" id="exampleInputPassword1" placeholder="Type Your Message (limit 150 characters)">
+          </div>
+          <div class="form-group">
+            <label for="MeetUpLocation">Meet-up Location</label>
+            <input type="message" class="form-control" id="exampleInputPassword1" placeholder="Hawkins Hall, PMU, etc...">
+          </div>
+          <div class="form-group">
+            <label for="Menu">Menu</label>
+            <input type="message" class="form-control" id="exampleInputPassword1" placeholder="Medium pepperoni pizza, etc...">
+          </div>
+          <div class="options">
+              <label>
+              <font> Payment :</font> &nbsp;
+            </label>
+              <label>
+              <input type="checkbox"> 50% (Pay Half Price)
+               </label>
+              &nbsp;
+              <label>
+              <input type="checkbox"> 100%  (Pay Full Price)
+              </label>
+          </div>
+          <div class="col-xs-4"></div>
+          <div class="col-xs-4" style="text-align:center">
+          <br><button type="submit" class="btn btn-default">Share</button>
+          </div>
+          <div class="col-xs-4"></div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="col-xs-1"></div>
+</div>
+</div>
+
 
 
 
@@ -170,10 +371,16 @@
 
     $("#search").click(function(){
         var zipcode = $('#zipcode').val();
-        $.post('/api/list',
-                {'zipcode':zipcode},
+        $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
                 function(data) {
                     console.log(data);
+                    if(data.status_code == 200)
+                    {
+                      $("#ziphome").remove();
+                      $("#logo").remove();
+                      $("#logohome").remove();
+                      $("#wholeshit").css("display", "inherit");
+                    }
                 });
         });
 });
