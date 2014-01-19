@@ -46,15 +46,13 @@
         <div class="login" style="text-align:center;">
           <form class="form-inline" role="form">
             <div class="form-group">
-              <label class="sr-only" for="exampleInputEmail2">Phone #</label>
-              <input type="phone" class="form-control" id="exampleInputEmail2" placeholder="Enter Phone #">
+              <input type="phone" class="form-control" id="phonenumber" placeholder="Enter Phone #">
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword2">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+              <input type="password" class="form-control" id="password" placeholder="Password">
             </div>
-            <button type="submit" class="btn btn-default">Sign in</button>
-            <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">Sign up</button>
+            <input type="button" id="signin" class="btn btn-default" value="Sign in">
+            <input type="button" id="signup" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="Sign up">
           </form>
         </div>
       </p>
@@ -77,22 +75,22 @@
           <div class="input-group">
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-phone"></span>
-              <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter Phone #" autofocus="true" style="width:95%">
+              <input type="text" class="form-control" id="signupphone" placeholder="Enter Phone #" autofocus="true" style="width:95%">
           </div>
           <div class="input-group">
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-check"></span>
-             <input type="password" class="form-control" id="exampleInputPassword11" placeholder="Password" style="width:95%">
+             <input type="password" class="form-control" id="signuppass" placeholder="Password" style="width:95%">
           </div>
           <div class="input-group">
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-saved"></span>
-             <input type="password" class="form-control" id="exampleInputPassword22" placeholder="Retype Password" style="width:95%">
+             <input type="password" class="form-control" id="signupre" placeholder="Retype Password" style="width:95%">
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary"> Register</button>
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+          <input type="button" id="registerbutton" class="btn btn-primary" value="Register">
 
         </div>
       </form>
@@ -136,4 +134,29 @@
 
   </body>
   
+<script>
+    $(document).ready(function(){
+    $("#signin").click(function(){
+        var password= $('#password').val();
+        var phonenumber= $('#phonenumber').val();
+        console.log('signin');
+        $.post('/api/signin',
+                {'phone':phonenumber, 'pass':password},
+                function(data) {
+                    console.log(data);
+                });
+    });
+    $("#registerbutton").click(function(){
+        var password= $('#password').val();
+        var phonenumber= $('#phonenumber').val();
+        $.post('/api/signup',
+                {'phone':signupphone, 'pass':signuppass},
+                function(data) {
+                    console.log(data);
+                });
+    });
+});
+
+
+</script>
 </html>
