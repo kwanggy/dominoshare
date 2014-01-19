@@ -135,6 +135,8 @@
   </body>
   
 <script>
+    var sessionkey;
+    var statuscode;
     $(document).ready(function(){
     $("#signin").click(function(){
         var password= $('#password').val();
@@ -143,16 +145,22 @@
         $.post('/api/signin',
                 {'phone':phonenumber, 'pass':password},
                 function(data) {
-                    console.log(data);
+                    sessionkey = data.result;
+                    console.log(r);
                 });
     });
     $("#registerbutton").click(function(){
-        var password= $('#password').val();
-        var phonenumber= $('#phonenumber').val();
+        var password= $('#signuppass').val();
+        var phonenumber= $('#signupphone').val();
         $.post('/api/signup',
-                {'phone':signupphone, 'pass':signuppass},
+                {'phone':phonenumber, 'pass':password},
                 function(data) {
-                    console.log(data);
+                    statuscode = data.status_code;
+                    if(statuscode !=200)
+                    {
+                        console.log(data.status_code);
+                    }
+                    
                 });
     });
 });
