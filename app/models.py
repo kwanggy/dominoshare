@@ -30,6 +30,7 @@ class User(db.Model):
         self.room = None
 
     def join_room(self, room):
+        self.leave_room()
         if len(room.users.all()) > 2:
             return False
         self.room = room
@@ -37,6 +38,8 @@ class User(db.Model):
         return True
 
     def leave_room(self):
+        if self.room == None:
+            return
         room = self.room
         self.room = None
         if len(room.users.all()) > 0:
@@ -81,6 +84,7 @@ class Room(db.Model):
     def set_menu(self, menu):
         self.menu = menu
         menu = menu.lower()
+
         if 'wing' in menu:
             url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BONEIN.jpg'
         elif 'boneless' in menu:
@@ -89,6 +93,8 @@ class Room(db.Model):
             url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BUILD.jpg'
         elif 'pizza' in menu:
             url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_PIZZA.jpg'
+        else:
+            url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/img-logo-home.png'
 
         self.photo_url = url
 
