@@ -31,9 +31,10 @@
   </head>
   
 
-  <body>    <div class="zipcodetpage" id="logohome"><br><br><br>
+  <body>    <div class="zipcodetpage">
+    <div class="logo" id="logohome" style="text-align:center; padding-bottom:10px" id="logo">
+<br><br><br>
 
-    <div class="logo" style="text-align:center; padding-bottom:10px" id="logo">
       <img src="../static/imgs/cropped.png">
     </div>
 
@@ -140,7 +141,6 @@
 
 
 
-
   <ul class="nav navbar-nav navbar-right">
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Profile<b class="caret"></b></a>
@@ -148,7 +148,7 @@
           <li><a href="#">Edit Profile</a></li>
           <li><a href="#">Order History</a></li>
           <li class="divider"></li>
-          <li><a href="#">Log Out</a></li>
+          <li><a href="#" id="logout">Log Out</a></li>
         </ul>
     </li>
   </ul>
@@ -342,7 +342,20 @@
                     }
                 });
         });
-    
+    $("#logout").click(function(){
+                      $('#roomname').val('');
+                      $('#roommsg').val('');
+                      $('#meetup').val('');
+                      $('#menu').val('');
+                      $('#wholeshit').css("display","none");
+                      $('#ziphome').css("display","none");
+                      $('#logohome').css("display", "inherit");
+                      $('#signhome').css("display", "inherit");
+                    });
+                            
+
+
+
     $("#registerbutton").click(function(){
         var password= $('#signuppass').val();
         var phonenumber= $('#signupphone').val();
