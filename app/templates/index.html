@@ -335,7 +335,9 @@
                     console.log(data2);
                     if(data2.status_code == 200)
                     {
-                        $("#signhome").remove();
+                        $("#phonenumber").val('');
+                        $("#password").val('');
+                        $("#signhome").css("display","none");
                         $("#ziphome").css("display", "inherit");
                     }
                 });
@@ -351,10 +353,6 @@
                     {
                         console.log(data);
                     }
-                    else
-                    {
-                        $("#myModal").attr("area-hidden","true");
-                    }
                     
                 });
             });
@@ -366,13 +364,21 @@
                     console.log(data);
                     if(data.status_code == 200)
                     {
-                      $("#ziphome").remove();
-                      $("#logo").remove();
-                      $("#logohome").remove();
+                      $("#zipcode").val('');
+                      $("#ziphome").css("display","none");
+                      $("#logo").css("display","none");
+                      $("#logohome").css("display","none");
                       $("#wholeshit").css("display", "inherit");
                     }
                 });
         });
+
+    $("#closebutton").click(function(){
+          $('#signupphone').val('');
+          $('#signuppass').val('');
+          $('#signupre').val('');
+        });
+
     $("#share").click(function(){
         var roomname = $('#roomname').val();
         var roommsg = $('#roommsg').val();
