@@ -2,6 +2,7 @@ from datetime import datetime
 import uuid, OpenSSL
 
 from flask import *
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.sqlalchemy import SQLAlchemy
 
 
@@ -14,7 +15,7 @@ class User(db.Model):
     created_at = db.Column(db.DateTime)
     id = db.Column(db.Integer, primary_key=True)
     phone = db.Column(db.String, unique=True)
-    pw = db.Column(db.String)
+    pw_hash = db.Column(db.String)
     session_key = db.Column(db.String, db.ForeignKey('session.key'))
     session = db.relationship('Session',
         backref=db.backref('user', lazy='dynamic'))
@@ -25,7 +26,7 @@ class User(db.Model):
     def __init__(self, phone, pw):
         self.created_at = datetime.utcnow()
         self.phone = phone
-        self.pw = pw
+        self.pw_hash = generate_password_hash(pw)
         self.room = None
 
     def join_room(self, room):
@@ -38,7 +39,7 @@ class User(db.Model):
     def leave_room(self):
         room = self.room
         self.room = None
-        if len(self.room.users) > 0:
+        if len(room.users.all()) > 0:
             room.updated()
         else:
             db.session.delete(room)
@@ -47,6 +48,9 @@ class User(db.Model):
         if self.session:
             db.session.delete(self.session)
         self.session = session
+
+    def check_password(self, pw):
+        return check_password_hash(self.pw_hash, pw)
         
 
 class Session(db.Model):
@@ -71,9 +75,22 @@ class Room(db.Model):
         self.created_at = datetime.utcnow()
         self.title = title
         self.zipcode = zipcode
-        self.menu = menu
-        self.photo_url = ''
+        self.set_menu(menu)
         self.updated()
+
+    def set_menu(self, menu):
+        self.menu = menu
+        menu = menu.lower()
+        if 'wing' in menu:
+            url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BONEIN.jpg'
+        elif 'boneless' in menu:
+            url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BONELESS.jpg'
+        elif 'pasta' in menu:
+            url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BUILD.jpg'
+        elif 'pizza' in menu:
+            url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_PIZZA.jpg'
+
+        self.photo_url = url
 
     def updated(self):
         self.last_updated = datetime.utcnow()
