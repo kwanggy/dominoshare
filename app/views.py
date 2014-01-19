@@ -135,7 +135,7 @@ def room_page(user):
             rooms = Room.query.filter_by(zipcode=zipcode).all()
             res = []
             for r in rooms:
-                if len(r.users) == 1:
+                if len(r.users.all()) == 1:
                     res.append(r.to_json())
             return res
         elif 'id' in request.args and 'last_updated' in request.args:

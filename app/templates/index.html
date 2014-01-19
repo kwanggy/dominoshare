@@ -278,50 +278,39 @@
         <form role="form">
           <div class="form-group">
             <label for="RoomName">Room Name</label>
-            <input type="roomname" class="form-control" id="exampleInputEmail1" placeholder="'Good Day for Chicken'">
+            <input type="roomname" class="form-control" id="roomname" placeholder="'Good Day for Chicken'">
           </div>
           <div class="form-group">
             <label for="RoomMessage">Message</label>
-            <input type="message" class="form-control" id="exampleInputPassword1" placeholder="Type Your Message (limit 150 characters)">
+            <input type="message" class="form-control" id="roommsg" placeholder="Type Your Message (limit 150 characters)">
           </div>
           <div class="form-group">
             <label for="MeetUpLocation">Meet-up Location</label>
-            <input type="message" class="form-control" id="exampleInputPassword1" placeholder="Hawkins Hall, PMU, etc...">
+            <input type="message" class="form-control" id="meetup" placeholder="Hawkins Hall, PMU, etc...">
           </div>
           <div class="form-group">
             <label for="Menu">Menu</label>
-            <input type="message" class="form-control" id="exampleInputPassword1" placeholder="Medium pepperoni pizza, etc...">
+            <input type="message" class="form-control" id="menu" placeholder="Medium pepperoni pizza, etc...">
           </div>
           <div class="options">
               <label>
               <font> Payment :</font> &nbsp;
             </label>
               <label>
-              <input type="checkbox"> 50% (Pay Half Price)
+              <input type="checkbox" id="half"> 50% (Pay Half Price)
                </label>
               &nbsp;
               <label>
-              <input type="checkbox"> 100%  (Pay Full Price)
+              <input type="checkbox" id="full"> 100% (Pay Full Price)
               </label>
           </div>
           <div class="col-xs-4"></div>
           <div class="col-xs-4" style="text-align:center">
-          <br><button type="submit" class="btn btn-default">Share</button>
+          <br>
+          <input type="button" id="share" class="btn btn-default" value="Share">
           </div>
           <div class="col-xs-4"></div>
         </form>
-
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-
-<div class="col-xs-1"></div>
-</div>
-</div>
-
 
 
 
@@ -333,6 +322,7 @@
   
 <script>
     var sessionkey;
+    var zipcode;
     $(document).ready(function(){
     $("#signin").click(function(){
         var password= $('#password').val();
@@ -370,7 +360,7 @@
             });
 
     $("#search").click(function(){
-        var zipcode = $('#zipcode').val();
+        zipcode = $('#zipcode').val();
         $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
                 function(data) {
                     console.log(data);
@@ -383,6 +373,29 @@
                     }
                 });
         });
+    $("#share").click(function(){
+        var roomname = $('#roomname').val();
+        var roommsg = $('#roommsg').val();
+        var meetup = $('#meetup').val();
+        var menu = $('#menu').val();
+        $.post('/api/room',
+                {'session_key':sessionkey, 'title':meetup,
+                 'menu':menu, 'zipcode':zipcode},
+                function(data) {
+                    console.log(data);
+                    console.log(data.result);
+                    if(data.status_code == 200)
+                    {
+                      $('#roomname').val('');
+                      $('#roommsg').val('');
+                      $('#meetup').val('');
+                      $('#menu').val('');
+                      $('#half').removeAttr('checked');
+                      $('#full').removeAttr('checked');
+                    }
+                });
+        });
+
 });
 
 </script>
