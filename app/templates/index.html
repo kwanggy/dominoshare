@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Welcome to 'Dominos Share'! </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+  <!--Scrollorma-->
+  <meta charset="utf-8"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+  <title></title>
+  
+  <link href='http://fonts.googleapis.com/css?family=Luckiest+Guy' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="css/style.css" type="text/css">  
+  <link rel="author" href="https://plus.google.com/107766061849006545830"/>
+
+
+
+    <style>
+      div.frontpage{
+        border-style: dotted;
+        border-width: 1px;
+        margin-right: 5%;
+        margin-left: 5%;
+        margin-bottom: 3%;
+        margin-top: 1%;
+      }
+    </style>
+  </head>
+  
+
+  <body>    <div class="zipcodetpage">
+    <div class="logo" id="logohome" style="text-align:center; padding-bottom:10px" id="logo">
+<br><br><br>
+
+      <img src="../static/imgs/cropped.png">
+    </div>
+
+
+    <!--Front Page JumboTron-->
+    <div class="jumbotron" id="signhome">
+      <h3 style="text-align:center;">Welcome to Dominos Share!</h3>
+      <p style="text-align:center;"><br>Join Us Now <br>And Share American's #1 Pizza With Your Neighbors.</p>
+      <p><br>
+        <div class="login" style="text-align:center;">
+          <form class="form-inline" role="form">
+            <div class="form-group">
+              <input type="phone" class="form-control" id="phonenumber" placeholder="Enter Phone #">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <input type="button" id="signin" class="btn btn-default" value="Sign in">
+            <input type="button" id="signup" class="btn btn-default" data-toggle="modal" data-target="#myModal" value="Sign up">
+          </form>
+        </div>
+      </p>
+    </div>
+  </div>
+
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="buton" class="close" data-dismiss="modal" aria-hidden="true" id='closebutton'>&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Sign up for Domino Share</h4>
+      </div>
+
+      <form class="form-signup"name="registerform">
+        <div class="modal-body">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-phone"></span>
+              <input type="text" class="form-control" id="signupphone" placeholder="Enter Phone #" autofocus="true" style="width:95%">
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-check"></span>
+             <input type="password" class="form-control" id="signuppass" placeholder="Password" style="width:95%">
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-saved"></span>
+             <input type="password" class="form-control" id="signupre" placeholder="Retype Password" style="width:95%">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="closebutton" class="btn btn-default" data-dismiss="modal" value="Close">Close</button>
+          <button id="registerbutton" class="btn btn-primary" value="Register">Register</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!--"ZIPCODE"-->
+
+
+    <!--Front Page JumboTron-->
+    <div class="jumbotron" id="ziphome" style="display:none">
+      <h3 style="text-align:center;">Enter Now!</h3>
+      <p style="text-align:center;"><br>Now Share American's #1 Pizza With Your Neighbors.</p>
+      <p><br>
+      <div class="zipcode" style="text-align:center;">
+          <form class="form-inline" role="form">
+            <div class="form-group">
+              <label class="sr-only" for="zipcode">ZipCode</label>
+              <input type="text" class="form-control" id="zipcode" placeholder="Zip Code">
+            </div>
+            <input type="button" id="search" class="btn btn-default" value="Search">
+          </form>
+        </div>
+      </p>
+    </div>
+  </div>
+
+  <!--END OF ZIPCODE-->
+
+
+<div id='wholeshit' style="display:none">
+    <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#" style="padding:1px"><img src="../static/imgs/cropped.png" style="width:60%;height:60%"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+
+  <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Profile<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Edit Profile</a></li>
+          <li><a href="#">Order History</a></li>
+          <li class="divider"></li>
+          <li><a href="#" id="logout">Log Out</a></li>
+        </ul>
+    </li>
+  </ul>
+</div><!-- /.navbar-collapse -->
+</nav>
+
+<!--nav bar ends-->
+
+
+
+
+
+
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+
+
+  <div class="row room-page">
+
+
+  <!--AREA A STARTS HERE-->
+  <div class="col-lg-6">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+          <h1 class="panel-title">Room Listing</h1>
+        </div>
+        <div class="panel-body" style="text-align:center;">
+
+
+          <div class="panel-group" id="accordion">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Collapsible Group Item #1
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+
+        Room Message Goes Here!
+
+
+<!--Enter Icon-->
+        <div class="icon" style="text-align:center;">
+          <br><button type="button" class="btn btn-success">Join!</button>
+        </div>
+<!--End Icon-->
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Collapsible Group Item #2
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+
+        Room Message Goes Here!
+
+
+<!--Enter Icon-->
+        <div class="icon" style="text-align:center;">
+          <br><button type="button" class="btn btn-success">Join!</button>
+        </div>
+<!--End Icon-->
+
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse"  data-parent="#accordion" href="#collapseThree">
+          Collapsible Group Item #3
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+
+        Room Message Goes Here!
+
+<!--Enter Icon-->
+        <div class="icon" style="text-align:center;">
+          <br><button type="button" class="btn btn-success">Join!</button>
+        </div>
+<!--End Icon-->
+
+      </div>
+    </div>
+  </div>
+  <!--# of List Room-->
+          <ul class="pagination pagination-sm" style="margin-bottom:0px">
+            <li class="enabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+          </ul>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+  <!--AREA B STARTS HERE-->
+  <div class="room creation">
+  <div class="col-lg-6">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h1 class="panel-title">Create a Room</h1>
+      </div>
+      <div class="panel-body">
+
+        <form role="form">
+          <div class="form-group">
+            <label for="MeetUpLocation">Meet-up Location</label>
+            <input type="message" class="form-control" id="meetup" placeholder="Hawkins Hall, PMU, etc...">
+          </div>
+          <div class="form-group">
+            <label for="Menu">Menu</label>
+            <input type="message" class="form-control" id="menu" placeholder="Medium pepperoni pizza, etc...">
+          </div>
+          <div class="form-group">
+            <label for="Menu">Price</label>
+            <input type="message" class="form-control" id="price" placeholder="Medium pepperoni pizza, etc...">
+          </div>
+          <div class="col-xs-4"></div>
+          <div class="col-xs-4" style="text-align:center">
+          <br>
+          <input type="button" id="share" class="btn btn-default" value="Share">
+          </div>
+          <div class="col-xs-4"></div>
+        </form>
+
+
+
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+  </body>
+  
+<script>
+    var sessionkey;
+    var zipcode;
+    $(document).ready(function(){
+
+
+    //clicking page numbers......
+    //clicking next prev buttons......
+
+    $("#signin").click(function(){
+        var password= $('#password').val();
+        var phonenumber= $('#phonenumber').val();
+        console.log('signin');
+        $.post('/api/signin',
+                {'phone':phonenumber, 'pass':password},
+                function(data2) {
+                    sessionkey = data2.result;
+                    console.log(data2);
+                    if(data2.status_code == 200)
+                    {
+                        $("#phonenumber").val('');
+                        $("#password").val('');
+                        $("#signhome").css("display","none");
+                        $("#ziphome").css("display", "inherit");
+                    }
+                });
+        });
+    $("#logout").click(function(){
+                      $('#meetup').val('');
+                      $('#menu').val('');
+                      $('#price').val('');
+                      $('#wholeshit').css("display","none");
+                      $('#ziphome').css("display","none");
+                      $('#logohome').css("display", "inherit");
+                      $('#signhome').css("display", "inherit");
+                    });
+                            
+
+
+
+    $("#registerbutton").click(function(){
+        var password= $('#signuppass').val();
+        var phonenumber= $('#signupphone').val();
+        $.post('/api/signup',
+                {'phone':phonenumber, 'pass':password},
+                function(data) {
+                    if(data.status_code !=200)
+                    {
+                        console.log(data);
+                    }
+                    
+                });
+            });
+
+    $("#search").click(function(){
+        zipcode = $('#zipcode').val();
+        $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
+                function(data) {
+                    console.log(data);
+                    if(data.status_code == 200)
+                    {
+                      $("#zipcode").val('');
+                      $("#ziphome").css("display","none");
+                      $("#logo").css("display","none");
+                      $("#logohome").css("display","none");
+                      $("#wholeshit").css("display", "inherit");
+
+
+                          //room listing first..
+    var $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapseOne'>"+"Today's menu"+"</a></h4></div><div id='collapseOne' class='panel-collapse collapse in'><div class='panel-body'>"+"Location"+"<div class='icon' style='text-align:center;'><br><button type='button' class='btn btn-success'>Join!</button></div></div></div>");
+
+    $("#accordion").prepend($newdiv1);
+                    }
+                });
+        });
+
+    $("#closebutton").click(function(){
+          $('#signupphone').val('');
+          $('#signuppass').val('');
+          $('#signupre').val('');
+        });
+
+    $("#share").click(function(){
+        var meetup = $('#meetup').val();
+        var menu = $('#menu').val();
+        var price =$('#price').val();
+        var menu_plus_price = menu +'-$'+ price;
+        $.post('/api/room',
+                {'session_key':sessionkey, 'title':meetup,
+                 'menu':menu_plus_price, 'zipcode':zipcode},
+                function(data) {
+                    console.log(data);
+                    console.log(data.result);
+                    if(data.status_code == 200)
+                    {
+                      $('#meetup').val('');
+                      $('#menu').val('');
+                      $('#price').val('');
+                      
+                    }
+                });
+        });
+
+});
+
+</script>
+</html>
