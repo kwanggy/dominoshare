@@ -76,7 +76,7 @@ class Room(db.Model):
 
     def set_menu(self, menu):
         self.menu = menu
-        menu = menu.lowercase()
+        menu = menu.lower()
         if 'wing' in menu:
             url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BONEIN.jpg'
         elif 'boneless' in menu:
