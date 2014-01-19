@@ -71,9 +71,22 @@ class Room(db.Model):
         self.created_at = datetime.utcnow()
         self.title = title
         self.zipcode = zipcode
-        self.menu = menu
-        self.photo_url = ''
+        self.set_menu(menu)
         self.updated()
+
+    def set_menu(self, menu):
+        self.menu = menu
+        menu = menu.lowercase()
+        if 'wing' in menu:
+            url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BONEIN.jpg'
+        elif 'boneless' in menu:
+            url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BONELESS.jpg'
+        elif 'past' in menu:
+            url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BUILD.jpg'
+        elif 'pizza' in menu:
+            url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_PIZZA.jpg'
+
+        self.photo_url = url
 
     def updated(self):
         self.last_updated = datetime.utcnow()
