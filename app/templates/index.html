@@ -79,19 +79,16 @@
                 {'phone':phonenumber, 'pass':password},
                 function(data) {
                     console.log(data);
-                },
-                function(err) {
-                    console.log(err);
                 });
     });
     $("#signup").click(function(){
         var password= $('#password').val();
         var phonenumber= $('#phonenumber').val();
-        $.ajax({
-            type : 'POST',
-            data : "{'phone':'"+phonenumber+"', 'password':'"+password+"'}",
-            url : "/"
-            });
+        $.post('/api/signup',
+                {'phone':phonenumber, 'pass':password},
+                function(data) {
+                    console.log(data);
+                });
     });
 });
 
