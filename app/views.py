@@ -172,5 +172,7 @@ def room_page(user):
             return res
         elif 'leave' in request.form:
             user.leave_room()
+            db.session.commit()
+            return None
         else:
             raise Exception('invalid arguments')
