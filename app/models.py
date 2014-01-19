@@ -38,7 +38,7 @@ class User(db.Model):
     def leave_room(self):
         room = self.room
         self.room = None
-        if len(self.room.users) > 0:
+        if len(self.room.users.all()) > 0:
             room.updated()
         else:
             db.session.delete(room)
@@ -81,7 +81,7 @@ class Room(db.Model):
             url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BONEIN.jpg'
         elif 'boneless' in menu:
             url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BONELESS.jpg'
-        elif 'past' in menu:
+        elif 'pasta' in menu:
             url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_BUILD.jpg'
         elif 'pizza' in menu:
             url = 'https://cache.dominos.com/nolo/us/en/013153/assets/build/images/img/products/thumbnails/S_PIZZA.jpg'
