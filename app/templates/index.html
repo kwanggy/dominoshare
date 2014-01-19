@@ -148,7 +148,8 @@
                         $("#ziphome").css("display", "inherit");
                     }
                 });
-    });
+        });
+    
     $("#registerbutton").click(function(){
         var password= $('#signuppass').val();
         var phonenumber= $('#signupphone').val();
@@ -173,9 +174,9 @@
                 {'zipcode':zipcode},
                 function(data) {
                     console.log(data);
-                })
+                });
         });
-
+});
 
 </script>
 </html>
