@@ -67,7 +67,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="buton" class="close" data-dismiss="modal" aria-hidden="true" id='closebutton'>&times;</button>
+        <button type="buton" class="close" data-dismiss="modal" aria-hidden="true" id='closebutton2'>&times;</button>
         <h4 class="modal-title" id="myModalLabel">Sign up for Domino Share</h4>
       </div>
 
@@ -90,8 +90,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button id="closebutton" class="btn btn-default" data-dismiss="modal" value="Close">Close</button>
-          <button id="registerbutton" class="btn btn-primary" value="Register">Register</button>
+          <button id="closebutton" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="registerbutton" class="btn btn-primary" data-dismiss="modal">Register</button>
 
         </div>
       </form>
@@ -179,88 +179,11 @@
 
 
           <div class="panel-group" id="accordion">
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          Collapsible Group Item #1
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in">
-      <div class="panel-body">
-
-        Room Message Goes Here!
-
-
-<!--Enter Icon-->
-        <div class="icon" style="text-align:center;">
-          <br><button type="button" class="btn btn-success">Join!</button>
-        </div>
-<!--End Icon-->
-
-      </div>
-    </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          Collapsible Group Item #2
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
-
-        Room Message Goes Here!
-
-
-<!--Enter Icon-->
-        <div class="icon" style="text-align:center;">
-          <br><button type="button" class="btn btn-success">Join!</button>
-        </div>
-<!--End Icon-->
-
-
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse"  data-parent="#accordion" href="#collapseThree">
-          Collapsible Group Item #3
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse">
-      <div class="panel-body">
-
-        Room Message Goes Here!
-
-<!--Enter Icon-->
-        <div class="icon" style="text-align:center;">
-          <br><button type="button" class="btn btn-success">Join!</button>
-        </div>
-<!--End Icon-->
-
-      </div>
-    </div>
-  </div>
+          </div>
   <!--# of List Room-->
-          <ul class="pagination pagination-sm" style="margin-bottom:0px">
-            <li class="enabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
+          <ul class="pagination pagination-sm" style="margin-bottom:0px" id="pages">
           </ul>
-</div>
+
 </div>
 </div>
 </div>
@@ -311,28 +234,27 @@
     var zipcode;
     $(document).ready(function(){
 
-
-    //clicking page numbers......
-    //clicking next prev buttons......
-
     $("#signin").click(function(){
         var password= $('#password').val();
         var phonenumber= $('#phonenumber').val();
-        console.log('signin');
         $.post('/api/signin',
                 {'phone':phonenumber, 'pass':password},
                 function(data2) {
                     sessionkey = data2.result;
-                    console.log(data2);
                     if(data2.status_code == 200)
                     {
                         $("#phonenumber").val('');
                         $("#password").val('');
                         $("#signhome").css("display","none");
-                        $("#ziphome").css("display", "inherit");
+                        $("#ziphome").css("display", "inherit"
+                          );
+                        $('#signupphone').val('');
+                        $('#signuppass').val('');
+                        $('#signupre').val('');
                     }
                 });
         });
+
     $("#logout").click(function(){
                       $('#meetup').val('');
                       $('#menu').val('');
@@ -342,9 +264,6 @@
                       $('#logohome').css("display", "inherit");
                       $('#signhome').css("display", "inherit");
                     });
-                            
-
-
 
     $("#registerbutton").click(function(){
         var password= $('#signuppass').val();
@@ -354,9 +273,15 @@
                 function(data) {
                     if(data.status_code !=200)
                     {
-                        console.log(data);
+                      $('#signuppass').val('');
+                      $('#signupre').val('');
                     }
-                    
+                    else
+                    {
+                      $('#signupphone').val('');
+                      $('#signuppass').val('');
+                      $('#signupre').val('');
+                    }
                 });
             });
 
@@ -364,7 +289,6 @@
         zipcode = $('#zipcode').val();
         $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
                 function(data) {
-                    console.log(data);
                     if(data.status_code == 200)
                     {
                       $("#zipcode").val('');
@@ -372,17 +296,174 @@
                       $("#logo").css("display","none");
                       $("#logohome").css("display","none");
                       $("#wholeshit").css("display", "inherit");
-
-
+                      $("#accordion").empty();
+                      var $newdiv1;
+                      var $opened='in';
+                      var $count=0;
+                      for (x=data.result.length-1;x>=0;x--)
+                      {
+                        if($count==4) break;
                           //room listing first..
-    var $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapseOne'>"+"Today's menu"+"</a></h4></div><div id='collapseOne' class='panel-collapse collapse in'><div class='panel-body'>"+"Location"+"<div class='icon' style='text-align:center;'><br><button type='button' class='btn btn-success'>Join!</button></div></div></div>");
+                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id='joinroom'></div></div></div>");
+                        $("#accordion").append($newdiv1);
+                        $count++;
+                        $opened='';
+                      }
+                      //calculate len of array
+                      //divide by 4.
 
-    $("#accordion").prepend($newdiv1);
+                      
+                      var pagenum = Math.floor(data.result.length / 4);
+                      var remainder = data.result.length % 4;
+
+                      var $newli;
+                      var $flag=0;
+                      $("#pages").empty();
+                      $("#pages").append('<li class="disabled pagebutton" id="'+'prev'+'"><a href="#" id="pagebutton">&laquo;</a></li>');
+                      $("#pages").append('<li class="active pagebutton" id="'+'1'+'"><a href="#">1 <span class="sr-only">(current)</span></a></li>');
+
+                      for(i=1;i<=pagenum;i++)
+                      {
+                        if(i==pagenum && remainder == 0) break;
+                        $flag = 1;
+                        $newli = '<li class="pagebutton" id="'+(i+1)+'"><a href="#">'+(i+1)+'</a></li>';
+                        $("#pages").append($newli);
+                      }
+                      if($flag == 0)
+                      {
+                        $("#pages").append('<li class="disabled pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
+                      }
+                      else
+                      {
+                        $("#pages").append('<li class="pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
+                      }
                     }
                 });
         });
 
+    $("#pages").on("click",".pagebutton",function(){
+      //ignore, disabled
+      //ignore, active
+      var id = this.id;
+      var max = 5;
+      var curr = $('.active.pagebutton').attr('id')
+      if(id == curr)
+      {
+        //ignore it
+        return;
+      }
+      if($('.disabled.pagebutton').length != 1)
+      {
+        if($('.disabled.pagebutton').length != 0)
+        {
+          if(id == $('.disabled.pagebutton')[0].id)
+          {
+            //ignore it
+            return;
+          }
+          if(id == $('.disabled.pagebutton')[1].id)
+          {
+            //ignore it
+            return;
+          }
+        }
+      }
+      else
+      {
+        if(id == $('.disabled.pagebutton').attr('id'))
+        {
+          //ignore it
+          return;
+        }
+      }
+      //console.log("fuck it ship it");
+      $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
+                function(data) {
+                    var x = data.result.length-1;
+                    if(data.status_code == 200)
+                    {
+                      $("#accordion").empty();
+                      var $newdiv1;
+                      var $opened='in';
+                      var $count=0;
+                      var $offset = (id - 1) * 4;
+                      console.log(id);
+                      if(id == 'prev')
+                      {
+                        $offset = (curr-2) * 4;
+                      }
+                      if(id == 'next')
+                      {
+                        $offset = (curr) * 4;
+                      }
+
+                      for (x=x+(-1 * $offset);x>=0;x--)
+                      {
+                        if($count==4) break;
+                          //room listing first..
+                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><button type='button' class='btn btn-success'>Join!</button></div></div></div>");
+                        $("#accordion").append($newdiv1);
+                        $count++;
+                        $opened='';
+                      }
+                      //calculate len of array
+                      //divide by 4.
+
+                      
+                      var pagenum = Math.floor(data.result.length / 4);
+                      var remainder = data.result.length % 4;
+                      if(remainder != 0)
+                        pagenum +=1;
+                      var $newli;
+                      var $flag=0;
+                      $("#pages").empty();
+                      console.log(curr);
+                      if(id=='next')
+                        id = (parseInt(curr)+1);
+                      if(id=='prev')
+                        id = (parseInt(curr)-1);
+                      console.log(id);
+                      if(id == 1)
+                      {
+                        $("#pages").append('<li class="disabled pagebutton" id="'+'prev'+'"><a href="#" id="pagebutton">&laquo;</a></li>');
+                      }
+                      else
+                      {
+                        $("#pages").append('<li class="pagebutton" id="'+'prev'+'"><a href="#">&laquo;</a></li>');
+                      }
+
+                      for(i=0;i<pagenum;i++)
+                      {
+                        if(i==pagenum && remainder == 0) break;
+                        if(i == (id-1))
+                        {
+                          $("#pages").append('<li class="active pagebutton" id="'+(i+1)+'"><a href="#">'+(i+1)+'<span class="sr-only">(current)</span></a></li>');
+                        }
+                        else
+                        {
+                          $newli = '<li class="pagebutton" id="'+(i+1)+'"><a href="#">'+(i+1)+'</a></li>';
+                          $("#pages").append($newli);
+                        }
+                      }
+                      if(id == pagenum)
+                      {
+                        $("#pages").append('<li class="disabled pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
+                      }
+                      else
+                      {
+                        $("#pages").append('<li class="pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
+                      }
+
+                    }
+                });
+    });
+
     $("#closebutton").click(function(){
+          $('#signupphone').val('');
+          $('#signuppass').val('');
+          $('#signupre').val('');
+        });
+    $("#closebutton2").click(function(){
           $('#signupphone').val('');
           $('#signuppass').val('');
           $('#signupre').val('');
@@ -397,14 +478,59 @@
                 {'session_key':sessionkey, 'title':meetup,
                  'menu':menu_plus_price, 'zipcode':zipcode},
                 function(data) {
-                    console.log(data);
-                    console.log(data.result);
                     if(data.status_code == 200)
                     {
                       $('#meetup').val('');
                       $('#menu').val('');
                       $('#price').val('');
+                     
+                      $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
+                function(data) {
+                    if(data.status_code == 200)
+                    {
+                      $("#accordion").empty();
+                      var $newdiv1;
+                      var $opened='in';
+                      var $count=0;
+                      for (x=data.result.length-1;x>=0;x--)
+                      {
+                        if($count==4) break;
+                          //room listing first..
+                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><button type='button' class='btn btn-success'>Join!</button></div></div></div>");
+                        $("#accordion").append($newdiv1);
+                        $count++;
+                        $opened='';
+                      }
+                      //calculate len of array
+                      //divide by 4.
+
                       
+                      var pagenum = Math.floor(data.result.length / 4);
+                      var remainder = data.result.length % 4;
+
+                      var $newli;
+                      var $flag=0;
+                      $("#pages").empty();
+                      $("#pages").append('<li class="disabled pagebutton" id="'+'prev'+'"><a href="#" id="pagebutton">&laquo;</a></li>');
+                      $("#pages").append('<li class="active pagebutton" id="'+'1'+'"><a href="#">1 <span class="sr-only">(current)</span></a></li>');
+
+                      for(i=1;i<=pagenum;i++)
+                      {
+                        if(i==pagenum && remainder == 0) break;
+                        $flag = 1;
+                        $newli = '<li class="pagebutton" id="'+(i+1)+'"><a href="#">'+(i+1)+'</a></li>';
+                        $("#pages").append($newli);
+                      }
+                      if($flag == 0)
+                      {
+                        $("#pages").append('<li class="disabled pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
+                      }
+                      else
+                      {
+                        $("#pages").append('<li class="pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
+                      }
+                    }
+                });
                     }
                 });
         });
