@@ -39,7 +39,7 @@
 
 
     <!--Front Page JumboTron-->
-    <div class="jumbotron">
+    <div class="jumbotron" id="signhome">
       <h3 style="text-align:center;">Welcome to Dominos Share!</h3>
       <p style="text-align:center;"><br>Join Us Now <br>And Share American's #1 Pizza With Your Neighbors.</p>
       <p><br>
@@ -70,7 +70,7 @@
         <h4 class="modal-title" id="myModalLabel">Sign up for Domino Share</h4>
       </div>
 
-      <form class="form-signup">
+      <form class="form-signup"name="registerform">
         <div class="modal-body">
           <div class="input-group">
             <span class="input-group-addon">
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+          <input type="button" id="closebutton" class="btn btn-default" data-dismiss="modal" value="Close">
           <input type="button" id="registerbutton" class="btn btn-primary" value="Register">
 
         </div>
@@ -100,14 +100,10 @@
 
 
 <!--"ZIPCODE"-->
-<div class="zipcodetpage"><br>
-    <div class="logo" style="text-align:center; padding-bottom:10px">
-      <img src="../static/imgs/cropped.png">
-    </div>
 
 
     <!--Front Page JumboTron-->
-    <div class="jumbotron">
+    <div class="jumbotron" id="ziphome" style="display:none">
       <h3 style="text-align:center;">Enter Now!</h3>
       <p style="text-align:center;"><br>Now Share American's #1 Pizza With Your Neighbors.</p>
       <p><br>
@@ -136,7 +132,6 @@
   
 <script>
     var sessionkey;
-    var statuscode;
     $(document).ready(function(){
     $("#signin").click(function(){
         var password= $('#password').val();
@@ -146,19 +141,31 @@
                 {'phone':phonenumber, 'pass':password},
                 function(data) {
                     sessionkey = data.result;
-                    console.log(r);
+                    console.log(data);
+                    if(data.status_code == 200)
+                    {
+                        $("#signhome").remove();
+                        $("#ziphome").css("display", "inherit");
+                    }
                 });
     });
+    $('#closebutton').click(function(){
+        //clearingform
+        }}
     $("#registerbutton").click(function(){
         var password= $('#signuppass').val();
         var phonenumber= $('#signupphone').val();
         $.post('/api/signup',
                 {'phone':phonenumber, 'pass':password},
                 function(data) {
-                    statuscode = data.status_code;
-                    if(statuscode !=200)
+                    if(data.status_code !=200)
                     {
-                        console.log(data.status_code);
+                        console.log(data);
+                    }
+                    else
+                    {
+                        $("#myModal").attr("area-hidden","true");
+//clearing form
                     }
                     
                 });
