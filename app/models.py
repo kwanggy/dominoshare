@@ -38,7 +38,7 @@ class User(db.Model):
     def leave_room(self):
         room = self.room
         self.room = None
-        if len(self.room.users.all()) > 0:
+        if len(room.users.all()) > 0:
             room.updated()
         else:
             db.session.delete(room)
