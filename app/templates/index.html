@@ -16,28 +16,89 @@
   <link rel="stylesheet" href="css/style.css" type="text/css">  
   <link rel="author" href="https://plus.google.com/107766061849006545830"/>
 
-
-
-    <style>
-      div.frontpage{
-        border-style: dotted;
-        border-width: 1px;
-        margin-right: 5%;
-        margin-left: 5%;
-        margin-bottom: 3%;
-        margin-top: 1%;
-      }
-    </style>
+  <style>
+    div.frontpage{
+      border-style: dotted;
+      border-width: 1px;
+      margin-right: 5%;
+      margin-left: 5%;
+      margin-bottom: 3%;
+      margin-top: 1%;
+    }
+    .login #logohome {
+      display: inherit;
+    }
+    .login #signhome {
+      display: inherit;
+    }
+    .login #ziphome {
+      display: none;
+    }
+    .login #wholeshit {
+      display: none;
+    }
+    .zip #logohome {
+      display: inherit;
+    }
+    .zip #signhome {
+      display: none;
+    }
+    .zip #ziphome {
+      display: inherit;
+    }
+    .zip #wholeshit {
+      display: none;
+    }
+    .room-search #logohome {
+      display: none;
+    }
+    .room-search #signhome {
+      display: none;
+    }
+    .room-search #ziphome {
+      display: none;
+    }
+    .room-search #wholeshit {
+      display: inherit;
+    }
+    .room-search #wholeshit .room.listing {
+      display: inherit;
+    }
+    .room-search #wholeshit .room.creation {
+      display: inherit;
+    }
+    .room-search #wholeshit .room.confirmation {
+      display: none;
+    }
+    .in-room #logohome {
+      display: none;
+    }
+    .in-room #signhome {
+      display: none;
+    }
+    .in-room #ziphome {
+      display: none;
+    }
+    .in-room #wholeshit {
+      display: inherit;
+    }
+    .in-room #wholeshit .room.listing {
+      display: none;
+    }
+    .in-room #wholeshit .room.creation {
+      display: none;
+    }
+    .in-room #wholeshit .room.confirmation {
+      display: inherit;
+    }
+  </style>
   </head>
-  
-
-  <body>    <div class="zipcodetpage">
-    <div class="logo" id="logohome" style="text-align:center; padding-bottom:10px" id="logo">
-<br><br><br>
-
+  <body>
+    <div class="zipcodetpage">
+      <div class="logo" id="logohome" style="text-align:center; padding-bottom:10px" id="logo">
+      <br><br><br>
       <img src="../static/imgs/cropped.png">
     </div>
-
 
     <!--Front Page JumboTron-->
     <div class="jumbotron" id="signhome">
@@ -104,7 +165,7 @@
 
 
     <!--Front Page JumboTron-->
-    <div class="jumbotron" id="ziphome" style="display:none">
+    <div class="jumbotron" id="ziphome">
       <h3 style="text-align:center;">Enter Now!</h3>
       <p style="text-align:center;"><br>Now Share American's #1 Pizza With Your Neighbors.</p>
       <p><br>
@@ -124,7 +185,7 @@
   <!--END OF ZIPCODE-->
 
 
-<div id='wholeshit' style="display:none">
+<div id='wholeshit'>
     <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -145,8 +206,8 @@
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Profile<b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Edit Profile</a></li>
-          <li><a href="#">Order History</a></li>
+          <!--li><a href="#">Edit Profile</a></li>
+          <li><a href="#">Order History</a></li-->
           <li class="divider"></li>
           <li><a href="#" id="logout">Log Out</a></li>
         </ul>
@@ -170,7 +231,7 @@
 
 
   <!--AREA A STARTS HERE-->
-  <div class="col-lg-6">
+  <div class="col-lg-6 room listing">
     <div class="panel panel-success">
         <div class="panel-heading">
           <h1 class="panel-title">Room Listing</h1>
@@ -192,7 +253,7 @@
 
 
   <!--AREA B STARTS HERE-->
-  <div class="room creation"style="display:none">
+  <div class="room creation">
     <div class="col-lg-6">
       <div class="panel panel-success">
         <div class="panel-heading">
@@ -225,30 +286,30 @@
     </div>
   </div>
  
- <div class="room confirmation"style="display:none">
+ <div class="room confirmation">
     <div class="col-lg-6">
       <div class="panel panel-success">
         <div class="panel-heading">
-          <h1 class="panel-title">Create a Room</h1>
+          <h1 class="panel-title">Room you are joined</h1>
         </div>
         <div class="panel-body">
         <form role="form">
           <div class="form-group">
             <label for="MeetUpLocation">Meet-up Location</label>
-            <input type="message" class="form-control" id="meetup" placeholder="Hawkins Hall, PMU, etc...">
+            <input type="message" class="form-control" id="in-meetup" disabled>
           </div>
           <div class="form-group">
             <label for="Menu">Menu</label>
-            <input type="message" class="form-control" id="menu" placeholder="Medium pepperoni pizza, etc...">
+            <input type="message" class="form-control" id="in-menu" disabled>
           </div>
           <div class="form-group">
-            <label for="Menu">Price</label>
-            <input type="message" class="form-control" id="price" placeholder="Medium pepperoni pizza, etc...">
+            <label for="Phone Number">Phone Number</label>
+            <input type="message" class="form-control" id="in-phone" disabled>
           </div>
           <div class="col-xs-4"></div>
           <div class="col-xs-4" style="text-align:center">
           <br>
-          <input type="button" id="share" class="btn btn-default" value="Share">
+          <input type="button" id="leave" class="btn btn-default" value="Leave">
           </div>
           <div class="col-xs-4"></div>
         </form>
@@ -265,15 +326,122 @@
   </body>
   
 <script>
-    var sessionkey;
+    var sessionkey='';
     var zipcode;
     var roomid=-1;
-    $(document).ready(function(){
+    function changeStatus(status) {
+      $('body').removeClass('login zip room-search in-room');
+      $('body').addClass(status);
+    }
+    function refreshRoomList(zipcode) {
+      $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
+        function(data) {
+          if(data.status_code == 200)
+          {
+              $("#accordion").empty();
+              var $newdiv1;
+              var $opened='in';
+              var $count=0;
+              for (x=data.result.length-1;x>=0;x--)
+              {
+                if($count==4) break;
+                  //room listing first..
+                if(roomid == -1)
+                {
+                $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
+                }
+                else
+                {
+                  $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
+                } 
+                $("#accordion").append($newdiv1);
+                $count++;
+                $opened='';
+              }
+              //calculate len of array
+              //divide by 4.
 
-    $("#signin").click(function(){
-        var password= $('#password').val();
-        var phonenumber= $('#phonenumber').val();
-        $.post('/api/signin',
+              
+              var pagenum = Math.floor(data.result.length / 4);
+              var remainder = data.result.length % 4;
+
+              var $newli;
+              var $flag=0;
+              $("#pages").empty();
+              $("#pages").append('<li class="disabled pagebutton" id="'+'prev'+'"><a href="#" id="pagebutton">&laquo;</a></li>');
+              $("#pages").append('<li class="active pagebutton" id="'+'1'+'"><a href="#">1 <span class="sr-only">(current)</span></a></li>');
+
+              for(i=1;i<=pagenum;i++)
+              {
+                if(i==pagenum && remainder == 0) break;
+                $flag = 1;
+                $newli = '<li class="pagebutton" id="'+(i+1)+'"><a href="#">'+(i+1)+'</a></li>';
+                $("#pages").append($newli);
+              }
+              if($flag == 0)
+              {
+                $("#pages").append('<li class="disabled pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
+              }
+              else
+              {
+                $("#pages").append('<li class="pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
+              }
+            }
+        });
+    }
+    function joinRoom(rid) {
+      $.post('/api/room',
+        {'session_key':sessionkey, 'id': rid},
+        function(data) {
+          console.log(data);
+            if(data.status_code !=200)
+            {
+              //join failed.
+              //might be full bang already.
+            }
+            else
+            {
+              console.log(data.result);
+              zipcode = data.result.zipcode;
+              $('#in-meetup').val(data.result.title);
+              $('#in-menu').val(data.result.menu);
+              $('#in-phone').val(data.result.users[0]);
+              changeStatus('in-room');
+            }
+        });
+    }
+    function leaveRoom() {
+      $.post('/api/room',
+        {'session_key':sessionkey, 'leave': 1},
+        function(data) {
+          console.log(data);
+            if(data.status_code !=200)
+            {
+              //join failed.
+              //might be full bang already.
+            }
+            else
+            {
+              console.log(data.result);
+              $('#in-meetup').val('');
+              $('#in-menu').val('');
+              $('#in-phone').val('');
+              changeStatus('room-search');
+              refreshRoomList(zipcode);
+            }
+        });
+    }
+    $(document).ready(function(){
+      if(sessionkey != '') {
+        changeStatus('zip');
+      } else {
+        changeStatus('login');
+      }
+
+      $("#signin").click(function(){
+          var password= $('#password').val();
+          var phonenumber= $('#phonenumber').val();
+          $.post('/api/signin',
                 {'phone':phonenumber, 'pass':password},
                 function(data2) {
                     sessionkey = data2.result;
@@ -281,31 +449,38 @@
                     {
                         $("#phonenumber").val('');
                         $("#password").val('');
-                        $("#signhome").css("display","none");
-                        $("#ziphome").css("display", "inherit"
-                          );
                         $('#signupphone').val('');
                         $('#signuppass').val('');
                         $('#signupre').val('');
+
+                        $.get('/api/room?session_key='+sessionkey,
+                          function(data) {
+                            if (data.status_code == 200) {
+                              var rid = data.result;
+                              console.log('rid = ' + rid);
+                              if (rid != null && rid != '')
+                                joinRoom(rid)
+                              else
+                                changeStatus('zip');
+                            }
+                          });
                     }
                 });
         });
 
-    $("#logout").click(function(){
-                      $('#meetup').val('');
-                      $('#menu').val('');
-                      $('#price').val('');
-                      $('#wholeshit').css("display","none");
-                      $('#ziphome').css("display","none");
-                      $('#logohome').css("display", "inherit");
-                      $('#signhome').css("display", "inherit");
+      $("#logout").click(function(){
+          $('#meetup').val('');
+          $('#menu').val('');
+          $('#price').val('');
+          sessionkey = '';
+          changeStatus('login');
 
-                      $.delete('/api/room?session_key='+sessionkey,
-                        function(data) {
-                          if(data.status_code !=200)
-                            console.log('something wrong');
-                        });
-                  });
+          $.delete('/api/room?session_key='+sessionkey,
+            function(data) {
+              if(data.status_code !=200)
+                console.log('something wrong');
+            });
+      });
 
     $("#registerbutton").click(function(){
         var password= $('#signuppass').val();
@@ -328,61 +503,11 @@
             });
 
     $("#search").click(function(){
-        zipcode = $('#zipcode').val();
-        $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
-                function(data) {
-                    if(data.status_code == 200)
-                    {
-                      $("#zipcode").val('');
-                      $("#ziphome").css("display","none");
-                      $("#logo").css("display","none");
-                      $("#logohome").css("display","none");
-                      $("#wholeshit").css("display", "inherit");
-                      $("#accordion").empty();
-                      var $newdiv1;
-                      var $opened='in';
-                      var $count=0;
-                      for (x=data.result.length-1;x>=0;x--)
-                      {
-                        if($count==4) break;
-                          //room listing first..
-                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
-                        $("#accordion").append($newdiv1);
-                        $count++;
-                        $opened='';
-                       
-                      }
-                      //calculate len of array
-                      //divide by 4.
-
-                      
-                      var pagenum = Math.floor(data.result.length / 4);
-                      var remainder = data.result.length % 4;
-
-                      var $newli;
-                      var $flag=0;
-                      $("#pages").empty();
-                      $("#pages").append('<li class="disabled pagebutton" id="'+'prev'+'"><a href="#" id="pagebutton">&laquo;</a></li>');
-                      $("#pages").append('<li class="active pagebutton" id="'+'1'+'"><a href="#">1 <span class="sr-only">(current)</span></a></li>');
-
-                      for(i=1;i<=pagenum;i++)
-                      {
-                        if(i==pagenum && remainder == 0) break;
-                        $flag = 1;
-                        $newli = '<li class="pagebutton" id="'+(i+1)+'"><a href="#">'+(i+1)+'</a></li>';
-                        $("#pages").append($newli);
-                      }
-                      if($flag == 0)
-                      {
-                        $("#pages").append('<li class="disabled pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
-                      }
-                      else
-                      {
-                        $("#pages").append('<li class="pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
-                      }
-                    }
-                });
-        });
+      zipcode = $('#zipcode').val();
+      $("#zipcode").val('');
+      changeStatus('room-search');
+      refreshRoomList(zipcode);
+    });
 
     $("#accordion").on("click",".roomjoin",function(){
       var id;
@@ -395,20 +520,7 @@
       {
         id = roomid;
       }
-      $.post('/api/room',
-                {'session_key':sessionkey, 'id':id},
-                function(data) {
-                  console.log(data);
-                    if(data.status_code !=200)
-                    {
-                      //join failed.
-                      //might be full bang already.
-                    }
-                    else
-                    {
-                      //join ok
-                    }
-                });
+      joinRoom(id);
     });
     $("#pages").on("click",".pagebutton",function(){
       //ignore, disabled
@@ -446,93 +558,7 @@
         }
       }
       //console.log("fuck it ship it");
-      $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
-                function(data) {
-                    var x = data.result.length-1;
-                    if(data.status_code == 200)
-                    {
-                      $("#accordion").empty();
-                      var $newdiv1;
-                      var $opened='in';
-                      var $count=0;
-                      var $offset = (id - 1) * 4;
-                      console.log(id);
-                      if(id == 'prev')
-                      {
-                        $offset = (curr-2) * 4;
-                      }
-                      if(id == 'next')
-                      {
-                        $offset = (curr) * 4;
-                      }
-
-                      for (x=x+(-1 * $offset);x>=0;x--)
-                      {
-                        if($count==4) break;
-                          //room listing first..
-                        if(roomid == -1)
-                        {
-                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
-                        }
-                        else
-                        {
-                          $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
-                        } 
-                        $("#accordion").append($newdiv1);
-                        $count++;
-                        $opened='';
-                        
-                      }
-                      //calculate len of array
-                      //divide by 4.
-
-                      
-                      var pagenum = Math.floor(data.result.length / 4);
-                      var remainder = data.result.length % 4;
-                      if(remainder != 0)
-                        pagenum +=1;
-                      var $newli;
-                      var $flag=0;
-                      $("#pages").empty();
-                      console.log(curr);
-                      if(id=='next')
-                        id = (parseInt(curr)+1);
-                      if(id=='prev')
-                        id = (parseInt(curr)-1);
-                      console.log(id);
-                      if(id == 1)
-                      {
-                        $("#pages").append('<li class="disabled pagebutton" id="'+'prev'+'"><a href="#" id="pagebutton">&laquo;</a></li>');
-                      }
-                      else
-                      {
-                        $("#pages").append('<li class="pagebutton" id="'+'prev'+'"><a href="#">&laquo;</a></li>');
-                      }
-
-                      for(i=0;i<pagenum;i++)
-                      {
-                        if(i==pagenum && remainder == 0) break;
-                        if(i == (id-1))
-                        {
-                          $("#pages").append('<li class="active pagebutton" id="'+(i+1)+'"><a href="#">'+(i+1)+'<span class="sr-only">(current)</span></a></li>');
-                        }
-                        else
-                        {
-                          $newli = '<li class="pagebutton" id="'+(i+1)+'"><a href="#">'+(i+1)+'</a></li>';
-                          $("#pages").append($newli);
-                        }
-                      }
-                      if(id == pagenum)
-                      {
-                        $("#pages").append('<li class="disabled pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
-                      }
-                      else
-                      {
-                        $("#pages").append('<li class="pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
-                      }
-
-                    }
-                });
+      refreshRoomList(zipcode);
     });
 
     $("#closebutton").click(function(){
@@ -564,64 +590,13 @@
                       $('#menu').val('');
                       $('#price').val('');
                      
-                      $.get('/api/room?session_key='+sessionkey+'&zipcode='+zipcode,
-                function(data) {
-                    if(data.status_code == 200)
-                    {
-                      $("#accordion").empty();
-                      var $newdiv1;
-                      var $opened='in';
-                      var $count=0;
-                      for (x=data.result.length-1;x>=0;x--)
-                      {
-                        if($count==4) break;
-                          //room listing first..
-                        if(roomid == -1)
-                        {
-                        $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
-                        }
-                        else
-                        {
-                          $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapse"+x+"'>"+data.result[x]["menu"]+"</a></h4></div><div id='collapse"+x+"' class='panel-collapse collapse "+$opened+"'><div class='panel-body'>"+data.result[x]["title"]+"<div class='icon' style='text-align:center;'><br><input type='button' class='btn btn-success roomjoin' value='Join!' id="+data.result[x]["id"]+"></div></div></div>");
-                        } 
-                        $("#accordion").append($newdiv1);
-                        $count++;
-                        $opened='';
-                      }
-                      //calculate len of array
-                      //divide by 4.
-
-                      
-                      var pagenum = Math.floor(data.result.length / 4);
-                      var remainder = data.result.length % 4;
-
-                      var $newli;
-                      var $flag=0;
-                      $("#pages").empty();
-                      $("#pages").append('<li class="disabled pagebutton" id="'+'prev'+'"><a href="#" id="pagebutton">&laquo;</a></li>');
-                      $("#pages").append('<li class="active pagebutton" id="'+'1'+'"><a href="#">1 <span class="sr-only">(current)</span></a></li>');
-
-                      for(i=1;i<=pagenum;i++)
-                      {
-                        if(i==pagenum && remainder == 0) break;
-                        $flag = 1;
-                        $newli = '<li class="pagebutton" id="'+(i+1)+'"><a href="#">'+(i+1)+'</a></li>';
-                        $("#pages").append($newli);
-                      }
-                      if($flag == 0)
-                      {
-                        $("#pages").append('<li class="disabled pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
-                      }
-                      else
-                      {
-                        $("#pages").append('<li class="pagebutton" id="'+'next'+'"><a href="#">&raquo;</a></li>');
-                      }
-                    }
-                });
+                      joinRoom(roomid);
                     }
                 });
         });
-
+    $("#leave").click(function(){
+        leaveRoom();
+      });
 });
 
 </script>

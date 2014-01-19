@@ -147,7 +147,7 @@ def room_page(user):
                 return res
             return None
         else:
-            raise Exception('invalid arguments')
+            return user.rid
     elif request.method == 'POST':
         if 'id' in request.form:
             rid = request.form['id']
