@@ -89,8 +89,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <input type="button" id="closebutton" class="btn btn-default" data-dismiss="modal" value="Close">
-          <input type="button" id="registerbutton" class="btn btn-primary" value="Register">
+          <button id="closebutton" class="btn btn-default" data-dismiss="modal" value="Close">Close</button>
+          <button id="registerbutton" class="btn btn-primary" value="Register">Register</button>
 
         </div>
       </form>
@@ -111,9 +111,9 @@
           <form class="form-inline" role="form">
             <div class="form-group">
               <label class="sr-only" for="zipcode">ZipCode</label>
-              <input type="zipcode" class="form-control" id="exampleInputEmail2" placeholder="Zip Code">
+              <input type="zipcode" class="form-control" id="zipcode" placeholder="Zip Code">
             </div>
-            <button type="submit" class="btn btn-default">Search</button>
+            <button type="submit" id="search" class="btn btn-default">Search</button>
           </form>
         </div>
       </p>
@@ -139,19 +139,16 @@
         console.log('signin');
         $.post('/api/signin',
                 {'phone':phonenumber, 'pass':password},
-                function(data) {
-                    sessionkey = data.result;
-                    console.log(data);
-                    if(data.status_code == 200)
+                function(data2) {
+                    sessionkey = data2.result;
+                    console.log(data2);
+                    if(data2.status_code == 200)
                     {
                         $("#signhome").remove();
                         $("#ziphome").css("display", "inherit");
                     }
                 });
     });
-    $('#closebutton').click(function(){
-        //clearingform
-        }}
     $("#registerbutton").click(function(){
         var password= $('#signuppass').val();
         var phonenumber= $('#signupphone').val();
@@ -165,12 +162,19 @@
                     else
                     {
                         $("#myModal").attr("area-hidden","true");
-//clearing form
                     }
                     
                 });
-    });
-});
+            });
+
+    $("#search").click(function(){
+        var zipcode = $('#zipcode').val();
+        $.post('/api/list',
+                {'zipcode':zipcode},
+                function(data) {
+                    console.log(data);
+                })
+        });
 
 
 </script>
