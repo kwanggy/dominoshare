@@ -179,6 +179,7 @@
 
 
           <div class="panel-group" id="accordion">
+
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -202,6 +203,7 @@
       </div>
     </div>
   </div>
+
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
@@ -325,7 +327,7 @@
     var zipcode;
     $(document).ready(function(){
 
-    //room listing first..
+
     //clicking page numbers......
     //clicking next prev buttons......
 
@@ -374,6 +376,12 @@
                       $("#logo").css("display","none");
                       $("#logohome").css("display","none");
                       $("#wholeshit").css("display", "inherit");
+
+
+                          //room listing first..
+    var $newdiv1 = $("<div class='panel panel-default'><div class='panel-heading'><h4 class='panel-title'><a data-toggle='collapse' data-parent='#accordion' href='#collapseOne'>"+"Today's menu"+"</a></h4></div><div id='collapseOne' class='panel-collapse collapse in'><div class='panel-body'>"+"Location"+"<div class='icon' style='text-align:center;'><br><button type='button' class='btn btn-success'>Join!</button></div></div></div>");
+
+    $("#accordion").prepend($newdiv1);
                     }
                 });
         });
