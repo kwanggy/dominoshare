@@ -75,7 +75,7 @@ def userinfo_required(create=False):
                 u = User.query.filter_by(phone=phone).first()
                 if u == None:
                     raise Exception('phone number does not exist')
-                if u.pw != pw:
+                if not u.check_password(pw):
                     raise Exception('password does not match')
             return f(u)
         return update_wrapper(wrapped, f)

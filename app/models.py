@@ -2,6 +2,7 @@ from datetime import datetime
 import uuid, OpenSSL
 
 from flask import *
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.sqlalchemy import SQLAlchemy
 
 
@@ -14,7 +15,7 @@ class User(db.Model):
     created_at = db.Column(db.DateTime)
     id = db.Column(db.Integer, primary_key=True)
     phone = db.Column(db.String, unique=True)
-    pw = db.Column(db.String)
+    pw_hash = db.Column(db.String)
     session_key = db.Column(db.String, db.ForeignKey('session.key'))
     session = db.relationship('Session',
         backref=db.backref('user', lazy='dynamic'))
@@ -25,7 +26,7 @@ class User(db.Model):
     def __init__(self, phone, pw):
         self.created_at = datetime.utcnow()
         self.phone = phone
-        self.pw = pw
+        self.pw_hash = generate_password_hash(pw)
         self.room = None
 
     def join_room(self, room):
@@ -47,6 +48,9 @@ class User(db.Model):
         if self.session:
             db.session.delete(self.session)
         self.session = session
+
+    def check_password(self, pw):
+        return check_password_hash(self.pw_hash, pw)
         
 
 class Session(db.Model):
